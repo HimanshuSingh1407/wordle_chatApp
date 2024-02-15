@@ -19,7 +19,7 @@ Ability to start and hide the chat form
 5. Other users' messages will be displayed in the message container.
 
 ## Technologies Used
-React, HTML, CSS, JavaScript, 
+HTML, CSS, JavaScript, with React.js Library,
 Socket.io for real-time communication, 
 Netlify for frontend deployment,
 Render for backend server deployment

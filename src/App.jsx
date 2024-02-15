@@ -19,7 +19,7 @@ const App = () => {
   }, []);
 
   const handleChange = (e) => {
-    console.log("event", e.target.value);
+    // console.log("event", e.target.value);
     setMessage(e.target.value);
   };
 
@@ -73,9 +73,12 @@ const App = () => {
                 Send
               </button>
             </form>
-            <div className="message-container" >
+            <div className="message-container">
               {messages?.map((message, index) => (
-                <div key={index} className={`message ${index % 2 === 0 ? 'left' : 'right'}`}>
+                <div
+                  key={index}
+                  className={`message ${index % 2 === 0 ? "left" : "right"}`}
+                >
                   <p>{message}</p>
                 </div>
               ))}

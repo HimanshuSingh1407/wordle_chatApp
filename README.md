@@ -4,7 +4,7 @@
 This is a simple chat application that allows users to communicate with each other in real-time.
 
 ## Website URL
-chatapp-worldle.netlify.app
+[chatapp-worldle.netlify.app](https://chatapp-worldle.netlify.app/)
 
 ## Features
 Real-time messaging

@@ -1,6 +1,7 @@
 # Chat App (React + Vite)
 
-
+## Description
+This is a simple chat application that allows users to communicate with each other in real-time.
 
 Deployed Link :- https://chatapp-worldle.netlify.app/
 

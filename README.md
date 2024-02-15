@@ -20,8 +20,8 @@ Ability to start and hide the chat form
 
 ## Technologies Used
 React, HTML, CSS, JavaScript, 
-Socket.io for real-time communication
-Netlify for frontend deployment
+Socket.io for real-time communication, 
+Netlify for frontend deployment,
 Render for backend server deployment
 
 ## Local Run Command

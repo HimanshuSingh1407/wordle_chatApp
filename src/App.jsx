@@ -1,32 +1,90 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
+import io from "socket.io-client";
 
-function App() {
+const App = () => {
   const [showForm, setShowForm] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [message, setMessage] = useState("");
 
   const toggleForm = () => {
-    setShowForm(!showForm); // Invert the state on each click
+    setShowForm(!showForm);
   };
+
+  useEffect(() => {
+    const newSocket = io("http://localhost:8080");
+    setSocket(newSocket);
+    return () => newSocket.close();
+  }, []);
+
+  const handleChange = (e) => {
+    console.log("event", e.target.value);
+    setMessage(e.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (socket && message.trim() !== "") {
+      socket.emit("newtext", message.trim());
+    }
+    setMessage("");
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("newtext", (msg) => {
+        setMessages((prevMessages) => [...prevMessages, msg]);
+      });
+      socket.on("history", (history) => {
+        setMessages(history);
+      });
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    if (socket) {
+      socket.on("newuser", () => {
+        console.log("new User");
+      });
+    }
+  }, [socket]);
 
   return (
     <>
-      <div>
-        <h1>Chat App</h1>
-        <button onClick={toggleForm}>
+      <div className="container">
+        <h1 className="title">Chat App</h1>
+        <button className="toggle-btn" onClick={toggleForm}>
           {showForm ? "Hide Form" : "Start Chat"}
         </button>
         {showForm && (
-          <div >
-            <form id="form">
-              <input id="inputText" type="text" autoComplete="off" />
-              <input type="submit" value="Send" />
+          <div className="chat-container">
+            <form id="form" onSubmit={handleSubmit}>
+              <input
+                className="message-input"
+                type="text"
+                autoComplete="off"
+                value={message}
+                onChange={handleChange}
+                placeholder="Type your message here..."
+              />
+              <button className="send-btn" type="submit">
+                Send
+              </button>
             </form>
-            <div id="msgs"></div>
+            <div className="message-container">
+              {messages?.map((message, index) => (
+                <div key={index} className="message">
+                  <p>{message}</p>
+                </div>
+              ))}
+            </div>
           </div>
         )}
       </div>
     </>
   );
-}
+};
 
 export default App;

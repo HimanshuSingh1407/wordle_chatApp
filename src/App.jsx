@@ -13,7 +13,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const newSocket = io("http://localhost:8080");
+    const newSocket = io("https://worldle-backend.onrender.com");
     setSocket(newSocket);
     return () => newSocket.close();
   }, []);
